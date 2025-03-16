@@ -43,7 +43,7 @@ class LightThemeColors implements ColorStyles {
 
   // bottom tab bar - icons
   @override
-  Color get bottomTabBarIconSelected => Colors.blue;
+  Color get bottomTabBarIconSelected => Colors.white;
   @override
   Color get bottomTabBarIconUnselected => Colors.black54;
 
@@ -51,7 +51,7 @@ class LightThemeColors implements ColorStyles {
   @override
   Color get bottomTabBarLabelUnselected => Colors.black45;
   @override
-  Color get bottomTabBarLabelSelected => Colors.black;
+  Color get bottomTabBarLabelSelected => Colors.white;
 
   // toast notification
   @override
