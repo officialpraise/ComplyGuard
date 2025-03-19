@@ -1,18 +1,19 @@
 import 'package:nylo_framework/nylo_framework.dart';
 
 class User extends Model {
-  String? name;
+  String? username;
   String? email;
-
+  int? id;
   static StorageKey key = 'user';
 
   User() : super(key: key);
 
   User.fromJson(dynamic data) {
-    name = data['name'];
+    username = data['username'];
     email = data['email'];
+    id = data['id'];
   }
 
   @override
-  toJson() => {"name": name, "email": email};
+  toJson() => {"username": username, "email": email, 'id': id};
 }
