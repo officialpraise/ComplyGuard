@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/networking/dio/interceptors/logging_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -17,12 +15,12 @@ class AuthService extends NyApiService {
       : super(
           buildContext,
           decoders: modelDecoders,
-          // baseOptions: (BaseOptions baseOptions) {
-          //   return baseOptions
-          //             ..connectTimeout = Duration(seconds: 5)
-          //             ..sendTimeout = Duration(seconds: 5)
-          //             ..receiveTimeout = Duration(seconds: 5);
-          // },
+          baseOptions: (BaseOptions baseOptions) {
+            return baseOptions
+              ..connectTimeout = Duration(seconds: 5)
+              ..sendTimeout = Duration(seconds: 5)
+              ..receiveTimeout = Duration(seconds: 5);
+          },
         );
 
   @override

@@ -8,7 +8,16 @@ import 'dio/interceptors/logging_interceptor.dart';
 
 class HomeTabServiceApiService extends NyApiService {
   HomeTabServiceApiService({BuildContext? buildContext})
-      : super(buildContext, decoders: modelDecoders);
+      : super(
+          buildContext,
+          decoders: modelDecoders,
+          baseOptions: (BaseOptions baseOptions) {
+            return baseOptions
+              ..connectTimeout = Duration(seconds: 5)
+              ..sendTimeout = Duration(seconds: 5)
+              ..receiveTimeout = Duration(seconds: 5);
+          },
+        );
   @override
   get interceptors => {
         if (getEnv('APP_DEBUG') == true) PrettyDioLogger: PrettyDioLogger(),
