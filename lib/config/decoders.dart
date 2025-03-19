@@ -1,3 +1,7 @@
+import '/app/networking/home_tab_service_api_service.dart';
+import 'package:flutter_app/app/networking/auth_service.dart';
+
+import '/app/controllers/register_controller.dart';
 import '/app/controllers/escalation_details_controller.dart';
 import '/app/models/escalation.dart';
 import '/app/controllers/login_controller.dart';
@@ -15,15 +19,11 @@ import '/app/networking/api_service.dart';
 
 final Map<Type, dynamic> modelDecoders = {
   Map<String, dynamic>: (data) => Map<String, dynamic>.from(data),
-
-  List<User>: (data) =>
-      List.from(data).map((json) => User.fromJson(json)).toList(),
   //
   User: (data) => User.fromJson(data),
 
-  // User: (data) => User.fromJson(data),
-
-  List<Escalation>: (data) => List.from(data).map((json) => Escalation.fromJson(json)).toList(),
+  List<Escalation>: (data) =>
+      List.from(data).map((json) => Escalation.fromJson(json)).toList(),
 
   Escalation: (data) => Escalation.fromJson(data),
 };
@@ -38,8 +38,8 @@ final Map<Type, dynamic> modelDecoders = {
 
 final Map<Type, dynamic> apiDecoders = {
   ApiService: () => ApiService(),
-
-  // ...
+  AuthService: () => AuthService(),
+  HomeTabServiceApiService: () => HomeTabServiceApiService()
 };
 
 /* Controller Decoders
@@ -56,4 +56,6 @@ final Map<Type, dynamic> controllers = {
   LoginController: () => LoginController(),
 
   EscalationDetailsController: () => EscalationDetailsController(),
+
+  RegisterController: () => RegisterController(),
 };

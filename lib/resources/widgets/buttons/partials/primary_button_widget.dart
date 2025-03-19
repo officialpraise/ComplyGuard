@@ -33,3 +33,9 @@ class PrimaryButton extends AppButton {
     );
   }
 }
+
+extension LoadingButton on PrimaryButton {
+  PrimaryButton withLoading(bool isLoading) {
+    return PrimaryButton(text: '');
+  }
+}

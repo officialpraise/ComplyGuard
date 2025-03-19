@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import '../../app/enum/enums.dart';
-import '../widgets/buttons/partials/primary_button_widget.dart';
+import '../widgets/buttons/buttons.dart';
 import '/app/controllers/escalation_details_controller.dart';
 
 class EscalationDetailsPage
@@ -22,10 +22,13 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
   late Escalation escalation;
   String? updateStatus;
   late List<String> escalationStates;
+
+  @override
+  bool get stateManaged => true;
   @override
   get init => () {
         escalation = widget.data();
-        escalationStates = ['Ongoing', 'Resolved'];
+        escalationStates = ['IN_REVIEW', 'RESOLVED'];
       };
 
   @override
@@ -50,11 +53,13 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
                         children: [
                       Gap(0.0147 * height),
                       // Title
-                      Text(
-                        escalation.title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
+                      Center(
+                        child: Text(
+                          escalation.title,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Gap(0.0098 * height),
                       // Description
@@ -67,12 +72,12 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
                       // Dates Section
                       _buildDateRow(Icons.calendar_today, "Created At",
                           escalation.createdAt),
-                      if (escalation.status == EscalationStatus.ongoing) ...[
+                      if (escalation.status == EscalationStatus.IN_REVIEW) ...[
                         Gap(0.0098 * height),
                         _buildDateRow(
                             Icons.update, "Last Updated", escalation.updatedAt!)
                       ],
-                      if (escalation.status == EscalationStatus.resolved) ...[
+                      if (escalation.status == EscalationStatus.RESOLVED) ...[
                         Gap(0.0098 * height),
                         _buildDateRow(Icons.check_circle, "Resolved At",
                             escalation.resolvedAt!)
@@ -90,7 +95,7 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
                             ))
                       ]),
                       Gap(0.0098 * height),
-                      if (escalation.status == EscalationStatus.resolved)
+                      if (escalation.status == EscalationStatus.RESOLVED)
                         SizedBox.shrink()
                       else
                         ...buildRadioButton,
@@ -99,13 +104,14 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
             //     ? Gap(0.18 * height)
             //:
             Gap(0.008 * height),
-            escalation.status == EscalationStatus.resolved
+            escalation.status == EscalationStatus.RESOLVED
                 ? SizedBox.shrink()
-                : PrimaryButton(
+                : Button.primary(
                     text: 'Update Status',
-                    onPressed: () {
-                      setState(() {});
-                      // debugPrint(updateStatus);
+                    loadingStyle: LoadingStyle.normal(),
+                    onPressed: () async {
+                      await controller.onTapUpdateState(
+                          escalationId: escalation.id, status: updateStatus);
                     })
           ],
         ),
@@ -116,10 +122,10 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
   List<Widget> get buildRadioButton {
     return [
       Text('Select to update the status'),
-      if (escalation.status == EscalationStatus.ongoing)
+      if (escalation.status == EscalationStatus.IN_REVIEW)
         RadioListTile(
             title: Text('Resolved'),
-            value: 'Resolved',
+            value: 'RESOLVED',
             groupValue: updateStatus,
             onChanged: ((value) {
               setState(() {
@@ -157,13 +163,13 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
   // Get status text
   String _getStatusText(EscalationStatus status) {
     switch (status) {
-      case EscalationStatus.pending:
+      case EscalationStatus.OPEN:
         return "Pending Review";
-      case EscalationStatus.ongoing:
+      case EscalationStatus.IN_REVIEW:
         return "Under Investigation";
-      case EscalationStatus.resolved:
+      case EscalationStatus.RESOLVED:
         return "Resolved";
-      case EscalationStatus.Unknown:
+      case EscalationStatus.UNKNOWN:
         return "Unknown";
     }
   }
@@ -171,13 +177,13 @@ class _EscalationDetailsPageState extends NyPage<EscalationDetailsPage> {
   // Get status color
   Color _getStatusColor(EscalationStatus status) {
     switch (status) {
-      case EscalationStatus.pending:
+      case EscalationStatus.OPEN:
         return Colors.red;
-      case EscalationStatus.ongoing:
+      case EscalationStatus.IN_REVIEW:
         return Colors.orange;
-      case EscalationStatus.resolved:
+      case EscalationStatus.RESOLVED:
         return Colors.green;
-      case EscalationStatus.Unknown:
+      case EscalationStatus.UNKNOWN:
         return Colors.grey;
     }
   }

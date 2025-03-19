@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/enum/enums.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import '../widgets/escalation_listings_widget.dart';
 
@@ -31,26 +32,29 @@ class _HomeNavigationHubState extends NavigationHub<HomeNavigationHub> {
       : super(() async {
           return {
             0: NavigationTab(
-              title: "Pending",
+              title: "OPEN",
               page: EscalationListings(
-                  //   escalations: escalations,
-                  ), // create using: 'dart run nylo_framework:main make:stateful_widget home_tab'
+                status: EscalationStatus.OPEN,
+                //   escalations: escalations,
+              ), // create using: 'dart run nylo_framework:main make:stateful_widget home_tab'
               // icon: Icon(Icons.home),
               // activeIcon: Icon(Icons.home),
             ),
             1: NavigationTab(
-              title: "Ongoing",
+              title: "IN_REVIEW",
               page: EscalationListings(
-                  // escalations: escalations,
-                  ), // create using: 'dart run nylo_framework:main make:stateful_widget settings_tab'
+                status: EscalationStatus.IN_REVIEW,
+                // escalations: escalations,
+              ), // create using: 'dart run nylo_framework:main make:stateful_widget settings_tab'
               // icon: Icon(Icons.settings),
               // activeIcon: Icon(Icons.settings),
             ),
             2: NavigationTab(
-              title: "Resolved",
+              title: "RESOLVED",
               page: EscalationListings(
-                  // escalations: escalations,
-                  ), // create using: 'dart run nylo_framework:main make:stateful_widget settings_tab'
+                status: EscalationStatus.RESOLVED,
+                // escalations: escalations,
+              ), // create using: 'dart run nylo_framework:main make:stateful_widget settings_tab'
               // icon: Icon(Icons.settings),
               // activeIcon: Icon(Icons.settings),
             ),

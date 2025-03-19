@@ -1,1 +1,1 @@
-enum EscalationStatus { pending, ongoing, resolved, Unknown }
+enum EscalationStatus { OPEN, IN_REVIEW, RESOLVED, UNKNOWN }

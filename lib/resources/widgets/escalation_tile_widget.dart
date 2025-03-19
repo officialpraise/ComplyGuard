@@ -18,7 +18,7 @@ class EscalationTile extends StatelessWidget {
         padding: EdgeInsets.only(top: 0.02 * height),
         child: Container(
           height: 0.18 * height,
-          padding: EdgeInsets.symmetric(vertical: 4),
+          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -107,13 +107,13 @@ class EscalationTile extends StatelessWidget {
 
   String getDateType(EscalationStatus type) {
     switch (type) {
-      case EscalationStatus.Unknown:
+      case EscalationStatus.UNKNOWN:
         return "Unknown";
-      case EscalationStatus.pending:
+      case EscalationStatus.OPEN:
         return "CreatedAt";
-      case EscalationStatus.ongoing:
+      case EscalationStatus.IN_REVIEW:
         return "UpdatedAt";
-      case EscalationStatus.resolved:
+      case EscalationStatus.RESOLVED:
         return "ResolvedAt";
     }
   }

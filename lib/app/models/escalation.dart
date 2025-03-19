@@ -26,10 +26,14 @@ class Escalation extends Model {
       status: getEscalationStatus(data['status'] as String),
       id: data['id'] as int,
       title: data['title'] as String,
-      description: data['description'] as String,
-      createdAt: DateTime.parse(data['createdAt'] as String),
-      resolvedAt: DateTime.parse(data['resolvedAt'] as String),
-      updatedAt: DateTime.parse(data['updatedAt'] as String),
+      description: data['reason'] as String,
+      createdAt: DateTime.parse(data['created_at'] as String),
+      resolvedAt: data['resolved_date'] == null
+          ? null
+          : DateTime.parse(data['resolved_date'] as String),
+      updatedAt: data['updated_at'] == null
+          ? null
+          : DateTime.parse(data['updated_at'] as String),
     );
   }
 
@@ -49,14 +53,14 @@ class Escalation extends Model {
 
 EscalationStatus getEscalationStatus(String type) {
   switch (type) {
-    case "ongoing":
-      return EscalationStatus.ongoing;
-    case "Pending":
-      return EscalationStatus.pending;
-    case "Resolved":
-      return EscalationStatus.resolved;
+    case "OPEN":
+      return EscalationStatus.OPEN;
+    case "IN_REVIEW":
+      return EscalationStatus.IN_REVIEW;
+    case "RESOLVED":
+      return EscalationStatus.RESOLVED;
 
     default:
-      return EscalationStatus.Unknown;
+      return EscalationStatus.UNKNOWN;
   }
 }
