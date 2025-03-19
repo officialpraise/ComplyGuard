@@ -29,7 +29,7 @@ ThemeData lightTheme(ColorStyles color) {
           lightTheme.titleLarge!.copyWith(color: color.appBarPrimaryContent),
       iconTheme: IconThemeData(color: color.appBarPrimaryContent),
       elevation: 1.0,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
     ),
     buttonTheme: ButtonThemeData(
       buttonColor: color.buttonContent,

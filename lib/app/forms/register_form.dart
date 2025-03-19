@@ -12,12 +12,10 @@ class RegisterForm extends NyFormData {
 
   @override
   fields() => [
-        Field.text("Name",
-            autofocus: true,
-            validate: FormValidator.notEmpty(),
-            style: "compact"),
-        Field.email("Email", validate: FormValidator.email(), style: "compact"),
-        Field.password("Password",
+        Field.text("username",
+            validate: FormValidator.notEmpty(), style: "compact"),
+        Field.email("email", validate: FormValidator.email(), style: "compact"),
+        Field.password("password",
             validate: FormValidator.password(strength: 1), style: "compact"),
       ];
 }

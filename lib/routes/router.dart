@@ -1,3 +1,6 @@
+import '/resources/pages/register_page.dart';
+import '/resources/pages/escalation_details_page.dart';
+import '/resources/pages/home_navigation_hub.dart';
 import '/resources/pages/login_page.dart';
 import '/resources/pages/not_found_page.dart';
 import '/resources/pages/home_page.dart';
@@ -22,17 +25,10 @@ import 'package:nylo_framework/nylo_framework.dart';
 
 appRouter() => nyRoutes((router) {
       router.add(HomePage.path);
-      // Add your routes here ...
 
-      // router.add(NewPage.path, transition: PageTransitionType.fade);
-
-      // Example using grouped routes
-      // router.group(() => {
-      //   "route_guards": [AuthRouteGuard()],
-      //   "prefix": "/dashboard"
-      // }, (router) {
-      //
-      // });
       router.add(NotFoundPage.path).unknownRoute();
       router.add(LoginPage.path).initialRoute();
+      router.add(HomeNavigationHub.path);
+      router.add(EscalationDetailsPage.path);
+      router.add(RegisterPage.path);
     });
