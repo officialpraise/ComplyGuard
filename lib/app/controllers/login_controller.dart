@@ -39,8 +39,9 @@ class LoginController extends Controller {
       },
       onError: (dioException) {
         showToastDanger(
-            description: dioException.response!.data["message"] ??
-                'Failed to Register User',
+            description: dioException.error == null
+                ? dioException.response!.data['message'] ?? 'Failed to Login'
+                : dioException.type.name,
             style: ToastNotificationStyleType.danger);
       },
     );

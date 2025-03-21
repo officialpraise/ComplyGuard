@@ -32,8 +32,10 @@ class RegisterController extends Controller {
       },
       onError: (dioException) {
         showToastOops(
-            description: dioException.response!.data["message"] ??
-                'Failed to Register User',
+            description: dioException.error == null
+                ? dioException.response!.data['message'] ??
+                    'Failed to Register User'
+                : dioException.type.name,
             style: ToastNotificationStyleType.danger);
       },
     );

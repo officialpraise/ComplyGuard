@@ -34,7 +34,9 @@ class EscalationDetailsController extends Controller {
         },
         onError: (dioException) {
           showToastDanger(
-              description: 'Failed Update Status',
+              description: dioException.error == null
+                  ? 'Failed Update Status'
+                  : dioException.type.name,
               style: ToastNotificationStyleType.danger);
         },
       );
